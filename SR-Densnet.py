@@ -38,7 +38,7 @@ class _dense_block(nn.ModuleDict):
             if name[:4] == "conv":
                 new_features = layer(features)
                 features = torch.cat([features, new_features], 1)
-        features = self.last_conv(features)
+        features = self.last_conv(features) + input
         return features
 
 class _global_dense_block(nn.ModuleDict):
