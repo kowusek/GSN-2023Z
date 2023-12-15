@@ -3,6 +3,7 @@ import torch.utils.data as data
 from PIL import Image
 from os import listdir
 from os.path import join
+import torch.nn.functional as F
 
 
 def image_load(path):
@@ -14,8 +15,9 @@ def image_load(path):
 def cropRes_transform(image_size, scaling_factor):
     return Compose([
         CenterCrop(image_size),
-        Resize(image_size // scaling_factor),
+        #Resize(image_size // scaling_factor),
         ToTensor(),
+        lambda x : F.interpolate(x, size=(25, 25), mode="area"),
     ])
     
 
